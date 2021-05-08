@@ -1,0 +1,80 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  transition: all 300ms cubic-bezier(0.36, 0.66, 0.04, 1);
+  z-index: 100;
+  &.visible {
+    opacity: 1;
+  }
+  &.hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+  .mask {
+    background: rgba(0, 0, 0, 0.7);
+    width: 100%;
+    height: 100%;
+  }
+  .modalContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &.rollDice,
+    &.gameRule {
+      margin: 0 76px;
+    }
+    &.result {
+      margin: 0 103px;
+    }
+    &.rollDice .modalContent {
+      //background-image: url('xxx/rollDice');制筛子弹窗背景
+      padding: 18px 16px 16px;
+      .confirmBtn {
+        width: 400px;
+        line-height: 88px;
+      }
+    }
+    &.gameRule .modalContent {
+      //background-image: url('xxx/question');问题弹窗背景
+      padding: 132px 18px 18px 20px;
+    }
+    &.result .modalContent {
+      //background-image: url('xxx/result');获奖弹窗背景
+      padding: 207px 16px 16px;
+      .confirmBtn {
+        width: 382px;
+        line-height: 80px;
+      }
+    }
+    .modalContent {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      background: red;
+      .confirmBtn {
+        background: linear-gradient(180deg, #ffed48 0%, #ffc506 100%);
+        border-radius: 44px;
+        border: 4px solid #ff8a10;
+      }
+      .canelBtn {
+        font-size: 30px;
+        color: #20835b;
+        line-height: 42px;
+        margin-top: 36px;
+      }
+    }
+    .modalCloseBtn {
+      margin-top: 90px;
+      width: 20px;
+      height: 21px;
+      background: white;
+    }
+  }
+}
