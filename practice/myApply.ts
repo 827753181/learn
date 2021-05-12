@@ -1,4 +1,4 @@
-Function.prototype.myApply = function (context, ...args) {
+Function.prototype.myApply = function (context, args) {
   context.fn = this;
   let res;
   if (args.length) {

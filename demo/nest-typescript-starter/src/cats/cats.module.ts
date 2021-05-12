@@ -1,5 +1,5 @@
-import { DynamicModule, Module } from '@nestjs/common';
-import { catsController } from 'src/controllers/catsControllers/cats.controller';
+import { Module } from '@nestjs/common';
+import { catsController } from './cats.controller';
 import { CatsService } from './cats.service';
 
 @Module({

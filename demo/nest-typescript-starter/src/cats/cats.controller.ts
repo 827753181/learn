@@ -1,29 +1,17 @@
-import {
-  Controller,
-  Get,
-  HttpCode,
-  Post,
-  Redirect,
-  Req,
-  Res,
-} from '@nestjs/common';
+import { Controller, Get, Post, Req, Res } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { AppService } from 'src/app.service';
 import { CatsService } from 'src/cats/cats.service';
 import { Cat } from 'src/cats/interfaces/cat.interface';
-import { delay } from 'src/utils';
 
 @Controller('cats')
 export class catsController {
-  constructor(
-    private readonly appService: AppService,
-    private catsService: CatsService,
-  ) {}
-  @Get('try/subRoute')
-  async subRoute(@Res() res: Response, @Req() req: Request): Promise<Cat[]> {
-    return this.catsService.findAll();
+  constructor(private catsService: CatsService) {}
+  @Get('try')
+  async subRoute(@Res() res: Response, @Req() req: Request) {
+    res.send(this.catsService.findAll());
+    res.end();
   }
-  @Post('helloworld')
+  @Get('helloworld')
   async getHello(@Res() res: Response) {
     setTimeout(() => {
       res.send(
@@ -121,7 +109,7 @@ export class catsController {
         }),
       );
       res.end();
-    }, 2 * 60 * 1000);
+    }, 3 * 1000);
   }
   @Post(':id')
   findOne(@Req() req: Request, @Res() res: Response): Response<string> {
