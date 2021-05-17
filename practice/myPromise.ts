@@ -169,7 +169,10 @@ class myPromise {
       this.taskList.forEach((cur) => this._handle(cur));
     });
   }
-} /*
+}
+
+
+/*
 
 //以下是测试代码 
 var promisesAplusTests = require("promises-aplus-tests");
