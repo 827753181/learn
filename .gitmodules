@@ -1,0 +1,6 @@
+[submodule "sourceCode/element-plus"]
+	path = sourceCode/element-plus
+	url = git@github.com:element-plus/element-plus.git
+[submodule "sourceCode/pro-components"]
+	path = sourceCode/pro-components
+	url = git@github.com:ant-design/pro-components.git
