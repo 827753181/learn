@@ -1,0 +1,23 @@
+
+
+注意事项：
+  外部依赖写入peerDependencies，打包时弄成外部依赖不要打进去
+  添加babel预编译，@babel/preset-env的modules设置为false保留es6模块引入
+  怎么让库支持多目录输出
+    entry设置多个入口,package.json添加对应输出文件写入到files字段
+
+
+额外小知识：
+  webpack4，slideEffects指当前的包或指定文档是否会对外部全局性的东西（window，原生对象）产生影响，如果import的内容最终不运行，删除后是否有影响
+
+// b.js
+export function b(v) { reutrn v }
+window.b = b;//(副作用)
+if (!global.Set) global.Set = require('babel-polyfill').Set//(副作用)
+new XmlHttpRequest().post('/analytics', data)//(副作用)
+
+
+
+package.json部分我不知道的字段意思
+man 提供给linux man命令的文件
+config 提供给scripts的初始变量 npm_package_config_xxx
