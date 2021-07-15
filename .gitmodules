@@ -4,3 +4,7 @@
 [submodule "sourceCode/pro-components"]
 	path = sourceCode/pro-components
 	url = git@github.com:ant-design/pro-components.git
+
+[submodule "debug-react"]
+	path = DebugReact
+	url = git@github.com:827753181/DebugReact.git
