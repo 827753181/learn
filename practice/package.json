@@ -4,11 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "serve": "npx babel-node --extensions .js,.ts,.jsx,.tsx",
     "testPromise": "promises-aplus-tests ./myPromise.ts"
   },
   "dependencies": {
+    "@babel/core": "^7.14.8",
+    "@babel/node": "^7.14.7",
+    "@babel/preset-env": "^7.14.8",
+    "@babel/preset-typescript": "^7.14.5",
     "promises-aplus-tests": "*",
-    "ts-node": "^9.1.1",
     "typescript": "^4.2.4"
   },
   "author": "fanlinbo",

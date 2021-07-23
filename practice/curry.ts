@@ -1,4 +1,4 @@
-function curry(fn, ...args) {
+export function curry(fn, ...args) {
   let argTotalLen = fn.length;
 
   return function(...rests)  {
