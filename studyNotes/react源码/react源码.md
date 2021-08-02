@@ -16,3 +16,12 @@ REACTDOM.render的流程
       |
       v
   commit阶段（`commitRoot`）
+
+
+
+buildOwnReact
+  创建rootFiberNode
+  scheduleIdleCallback  ===   调度更新（`ensureRootIsScheduled`）
+  performUnitOfWork
+  reconcileChildren
+  commitRoot
