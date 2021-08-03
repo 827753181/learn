@@ -12,11 +12,15 @@ let currentRoot = null;
 //要删除的元素列表
 let deletions = null;
 
+//hook相关全局变量，用于定位
+let wipFiber = null,
+  hookIndex = 0;
+
 const createTextElement = (text) => {
   return {
     type: REACT_TEXT_ELEMENT,
     props: {
-      nodeValue: text,
+      nodeValue: text != null && text !== false ? text : undefined,
       children: [],
     },
   };
@@ -39,10 +43,8 @@ const createDom = (fiber) => {
     fiber.type === REACT_TEXT_ELEMENT
       ? document.createTextNode("")
       : document.createElement(fiber.type);
-  const props = fiber.props || {};
-  fiber.dom = dom;
-  updateDom(fiber.dom, {}, props);
-  return fiber.dom;
+  updateDom(dom, {}, fiber.props);
+  return dom;
 };
 const render = (container, element) => {
   wipRoot = {
@@ -55,6 +57,37 @@ const render = (container, element) => {
   deletions = [];
   nextUnitOfWork = wipRoot;
 };
+function useState(initialState) {
+  let oldHook =
+    wipFiber.alternate &&
+    wipFiber.alternate.hooks &&
+    wipFiber.alternate.hooks[hookIndex];
+  let hook = {
+    state: oldHook ? oldHook.state : initialState,
+    queue: [],
+  };
+
+  const actions = oldHook ? oldHook.queue : [];
+  actions.forEach((action) => {
+    console.log(hook.state);
+    hook.state = action(hook.state);
+  });
+  const setState = (action) => {
+    if (typeof action === "function") hook.queue.push(action);
+    else hook.queue.push((val) => action);
+    wipRoot = {
+      dom: currentRoot.dom,
+      props: currentRoot.props,
+      alternate: currentRoot,
+    };
+
+    nextUnitOfWork = wipRoot;
+    deletions = [];
+  };
+  wipFiber.hooks.push(hook);
+  hookIndex++;
+  return [hook.state, setState];
+}
 //数据渲染要实现   --- 1.当前的虚拟dom，2.渲染函数
 var Didact = {
   createElement,
@@ -63,6 +96,7 @@ var Didact = {
   createDom,
 
   render,
+  useState,
 };
 
 //fiber
@@ -83,27 +117,19 @@ class Fiber {
   props: {};
 }
 
+const isEvent = (key: string) => key.startsWith("on");
 const isProperty = (key) => key !== "children" && !isEvent(key);
 const isNew = (prev, next) => (key) => prev[key] !== next[key];
 const isDelete = (prev, next) => (key) => !(key in next);
-const isEvent = (key: string) => key.startsWith("on");
 //更新Dom的模块
 const updateDom = (dom, prevProps, nextProps) => {
-  //remove old events
+  //remove old events listeners or changed event listeners
   Object.keys(prevProps)
     .filter(isEvent)
-    .filter(isDelete(prevProps, nextProps))
+    .filter((key) => !(key in nextProps) || isNew(prevProps, nextProps)(key))
     .forEach((name) => {
       const eventType = name.toLowerCase().substring(2);
       dom.removeEventListener(eventType, prevProps[name]);
-    });
-  //update or add old events
-  Object.keys(nextProps)
-    .filter(isEvent)
-    .filter(isNew(prevProps, nextProps))
-    .forEach((name) => {
-      const eventType = name.toLowerCase().substring(2);
-      dom.addEventListener(eventType, nextProps[name]);
     });
 
   //remove old props
@@ -116,6 +142,15 @@ const updateDom = (dom, prevProps, nextProps) => {
     .filter(isProperty)
     .filter(isNew(prevProps, nextProps))
     .forEach((key) => (dom[key] = nextProps[key]));
+
+  //update or add old events
+  Object.keys(nextProps)
+    .filter(isEvent)
+    .filter(isNew(prevProps, nextProps))
+    .forEach((name) => {
+      const eventType = name.toLowerCase().substring(2);
+      dom.addEventListener(eventType, nextProps[name]);
+    });
 };
 
 function commitDeletion(fiber, parentDom) {
@@ -144,7 +179,11 @@ function commitRoot() {
 }
 
 function updateFunctionComponent(fiber) {
+  wipFiber = fiber;
+  hookIndex = 0;
+  wipFiber.hooks = [];
   const children = [fiber.type(fiber.props)];
+
   reconcileChildren(fiber, children);
 }
 
@@ -162,8 +201,8 @@ function updateHostComponent(fiber) {
 function performUnitOfWork(fiber: Fiber) {
   //单元任务，创建fiber各个节点，并将其链接构建出fiberTree
   /*
-    1.add dom node
-    2.create new fibers
+    1.add dom node  -- updateXXX
+    2.create new fibers --- reconcileChildren in updateXXX
     3.return next unit of work
   */
   if (fiber) {
@@ -200,7 +239,7 @@ function reconcileChildren(wipFiber, elements) {
       //  update the node
       newFiber = {
         type: oldFiber.type,
-        props: oldFiber.props,
+        props: element.props,
         dom: oldFiber.dom,
         parent: wipFiber,
         alternate: oldFiber,
@@ -208,7 +247,7 @@ function reconcileChildren(wipFiber, elements) {
       };
     }
     if (element && !sameType) {
-      // TODO add this node
+      //  add this node
       newFiber = {
         type: element.type,
         props: element.props,
@@ -255,9 +294,31 @@ function workLoop(deadLine) {
 function schedulerCallback() {
   requestIdleCallback(workLoop);
 }
+
+/** @jsx Didact.createElement */
+const FunctionComp = (props) => {
+  const [a, setA] = useState(111);
+  let dom = (
+    <div className="FunctionComp">
+      {a > 111 && "testAdd"}
+      <span
+        onClick={() => {
+          setA((old) => {
+            return old + 2;
+          });
+        }}
+      >
+        {a}
+      </span>
+      {a === 111 && "testDel"}
+    </div>
+  );
+  return dom;
+};
 /** @jsx Didact.createElement */
 const element = (
   <h1 title="foo">
+    <FunctionComp test={2}></FunctionComp>
     <div onClick={() => alert(2)} className="sss">
       hahahah
     </div>
