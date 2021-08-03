@@ -118,15 +118,21 @@ const updateDom = (dom, prevProps, nextProps) => {
     .forEach((key) => (dom[key] = nextProps[key]));
 };
 
+function commitDeletion(fiber, parentDom) {
+  if (fiber.dom) parentDom.removeChild(fiber.dom);
+  else commitDeletion(fiber.child, parentDom);
+}
 //commit的工作单元
 function commitWork(fiber) {
   if (!fiber) return;
-  const parent = fiber.parent.dom;
+  let hasDomParentFiber = fiber.parent;
+  if (!hasDomParentFiber.dom) hasDomParentFiber = hasDomParentFiber.parent;
+  const parentDom = hasDomParentFiber.dom;
   if (fiber.effectTag === "PLACEMENT" && fiber.dom != null)
-    parent.appendChild(fiber.dom);
+    parentDom.appendChild(fiber.dom);
   else if (fiber.effectTag === "UPDATE")
     updateDom(fiber.dom, fiber.alternate.props, fiber.props);
-  else if (fiber.effectTag === "DELETION") parent.removeChild(fiber.dom);
+  else if (fiber.effectTag === "DELETION") commitDeletion(fiber, parentDom);
   commitWork(fiber.child);
   commitWork(fiber.sibling);
 }
@@ -137,6 +143,22 @@ function commitRoot() {
   wipRoot = null;
 }
 
+function updateFunctionComponent(fiber) {
+  const children = [fiber.type(fiber.props)];
+  reconcileChildren(fiber, children);
+}
+
+function updateHostComponent(fiber) {
+  // 1.add dom node
+  if (!fiber.dom) fiber.dom = Didact.createDom(fiber);
+
+  // 每次渲染都添加，可能导致ui渲染不完全的页面被用户看到，因此，我们引入concurrent模式，when commit时触发renderall
+  // if (fiber.parent) fiber.parent.dom.appendChild(fiber.dom);
+  // 2.create new fibers
+  let elements = fiber.props.children;
+  reconcileChildren(fiber, elements);
+}
+
 function performUnitOfWork(fiber: Fiber) {
   //单元任务，创建fiber各个节点，并将其链接构建出fiberTree
   /*
@@ -145,14 +167,8 @@ function performUnitOfWork(fiber: Fiber) {
     3.return next unit of work
   */
   if (fiber) {
-    // 1.add dom node
-    if (!fiber.dom) fiber.dom = Didact.createDom(fiber);
-
-    // 每次渲染都添加，可能导致ui渲染不完全的页面被用户看到，因此，我们引入concurrent模式，when commit时触发renderall
-    // if (fiber.parent) fiber.parent.dom.appendChild(fiber.dom);
-    // 2.create new fibers
-    let elements = fiber.props.children;
-    reconcileChildren(fiber, elements);
+    if (fiber.type instanceof Function) updateFunctionComponent(fiber);
+    else updateHostComponent(fiber);
 
     //3.return next unit of work
     if (fiber.child) {
@@ -167,7 +183,7 @@ function performUnitOfWork(fiber: Fiber) {
     }
   }
 }
-
+// 根据旧有fiberChildren 创建新fiberChildren
 function reconcileChildren(wipFiber, elements) {
   let index = 0,
     prevSibing = null;
@@ -282,4 +298,3 @@ const element = (
 var container = document.querySelector("#root");
 Didact.render(container, element);
 schedulerCallback();
-
