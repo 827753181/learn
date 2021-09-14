@@ -118,3 +118,56 @@ const optimizeCountRoutes = function (locations, start, finish, fuel) {
 
   return dfs(locations, start, finish, fuel);
 };
+
+import { Chart } from "@antv/g2";
+
+const data = [
+  { country: "巴西", population: 18203 },
+  { country: "印尼", population: 23489 },
+  { country: "美国", population: 29034 },
+  { country: "印度", population: 104970 },
+  { country: "中国", population: 131744 },
+];
+const data2 = [
+  { country: "巴西", population: 38203 },
+  { country: "印尼", population: 23489 },
+  { country: "美国", population: 29034 },
+  { country: "印度", population: 104970 },
+  { country: "中国", population: 131744 },
+];
+
+const chart = new Chart({
+  container: "container",
+  autoFit: true,
+  height: 500,
+});
+chart.data(data);
+chart.scale("population", { nice: true });
+chart.coordinate().transpose();
+chart.tooltip({
+  showMarkers: false,
+});
+chart.animate(false)
+
+//反正大致就这样，要实现分段渐变，然后看看怎么和原生动画接入就ok了
+const animate = (oldData, data, onChangeValue, valueKey = "value") => {
+  let newVal = data[valueKey],
+    oldValue = oldData[valueKey];
+  let add = Math.max(Math.floor((newVal - oldValue) / 100), 1);
+  let loop = (oldData, add) => {
+    oldData[valueKey] += add;
+    onChangeValue();
+    if (oldData[valueKey] >= newVal) return;
+    setTimeout(() => loop(oldData, add),10);
+  };
+  loop(oldData, add);
+};
+
+setTimeout(() => {
+  animate(data[0],data2[0],() => {
+    chart.changeData(data);
+  },'population')
+}, 1000);
+chart.interaction("active-region");
+chart.interval().position("country*population");
+chart.render();
