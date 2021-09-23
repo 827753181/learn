@@ -1,0 +1,34 @@
+{
+  "name": "@fanlinbo/test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "npx babel-node --extensions .js,.ts,.jsx,.tsx",
+    "testPromise": "promises-aplus-tests ./myPromise.ts",
+    "build": "npx babel -x .js,.ts,.jsx,.tsx -d dist --external-helpers",
+    "buildWatch": "rm -rf ./dist && cp -r ./public ./dist && npx babel -x \".js,.ts,.jsx,.tsx\" -d dist -w"
+  },
+  "dependencies": {
+    "@babel/cli": "^7.14.8",
+    "@babel/core": "^7.14.8",
+    "@babel/node": "^7.14.7",
+    "@babel/preset-env": "^7.14.8",
+    "@babel/preset-react": "^7.14.5",
+    "@babel/preset-typescript": "^7.14.5",
+    "jest": "^27.1.0",
+    "lodash": "^4.17.21",
+    "promises-aplus-tests": "*",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-test-renderer": "^17.0.2",
+    "ts-jest": "^27.0.5",
+    "typescript": "^4.2.4"
+  },
+  "author": "fanlinbo",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^27.0.1"
+  }
+}
