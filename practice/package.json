@@ -20,6 +20,9 @@
     "jest": "^27.1.0",
     "lodash": "^4.17.21",
     "promises-aplus-tests": "*",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-test-renderer": "^17.0.2",
     "ts-jest": "^27.0.5",
     "typescript": "^4.2.4"
   },
