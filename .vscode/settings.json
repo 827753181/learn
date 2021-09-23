@@ -2,7 +2,7 @@
   "pasteImage.path": "${projectRoot}/studyNotes/attachments",
   // "pasteImage.basePath": "${projectRoot}/notes",
   "pasteImage.defaultName": "Y-MM-DD-HH-mm-ss",
-  "pasteImage.basePath": "${projectRoot}/studyNotes/notes",
+  "pasteImage.basePath": "${projectRoot}/studyNotes",
   "pasteImage.namePrefix": "${currentFileNameWithoutExt}__",
   "pasteImage.prefix": "/",
   "pasteImage.insertPattern": "![${imageFileNameWithoutExt}](${imageFilePath})",
