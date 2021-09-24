@@ -5,6 +5,6 @@
   "pasteImage.basePath": "${projectRoot}/studyNotes",
   "pasteImage.namePrefix": "${currentFileNameWithoutExt}__",
   "pasteImage.prefix": "/",
-  "pasteImage.insertPattern": "![${imageFileNameWithoutExt}](${imageFilePath})",
+  "pasteImage.insertPattern": "![${imageFileNameWithoutExt}](/studyNotes/${imageFilePath})",
   "pasteImage.showFilePathConfirmInputBox": false
 }
