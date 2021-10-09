@@ -82,6 +82,6 @@ flushSyncCallbackQueue();
 return null;
 ```
 主要有三点内容
-useEffect相关的处理
-性能追踪的相关处理
-触发一些commit阶段的生命钩子（如果这些回调里会触发新的更新，会调度一个同步的新的render-commit流程，所以render和commit阶段不一定是线性的）
+- useEffect相关的处理
+- 性能追踪的相关处理
+- 在commit阶段触发的生命钩子，如果这些回调里会触发新的更新，会调度一个同步的新的render-commit流程（所以render和commit阶段不一定是线性的），调用flushSyncCallbackQueue执行
