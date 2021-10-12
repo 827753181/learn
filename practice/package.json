@@ -7,7 +7,7 @@
     "test": "jest",
     "start": "npx babel-node --extensions .js,.ts,.jsx,.tsx",
     "testPromise": "promises-aplus-tests ./myPromise.ts",
-    "build": "npx babel -x .js,.ts,.jsx,.tsx -d dist --external-helpers",
+    "build": "npx babel -x .js,.ts,.jsx,.tsx -d dist",
     "buildWatch": "rm -rf ./dist && cp -r ./public ./dist && npx babel -x \".js,.ts,.jsx,.tsx\" -d dist -w"
   },
   "dependencies": {
