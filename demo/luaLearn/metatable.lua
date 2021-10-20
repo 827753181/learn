@@ -1,41 +1,4 @@
 
-array = {"Lua", "Tutorial"}
-obj = {
-    ['a'] = 1,
-    ['b'] = 2
-}
-
--- 自己的迭代器
---[[ 
-  迭代器的本质  
-  迭代器函数表达式应该返回for需要的三个值  迭代函数、状态常量、控制变量
-  for in 语句会将 状态常量 和 控制变量 作为参数调用迭代函数
-  迭代函数返回值 
-    如果第一个为nil，结束循环
-    否则 
-      赋值给左边的变量列表，执行循环
-      将迭代函数返回值赋值给状态常量和控制变量，然后这两作为参数调用迭代函数
- ]]
-print('\n----------iter function log start----------');
-function iter(a, i)
-    i = i + 1
-    local v = a[i]
-    if v then
-        return i, v
-    end
-end
-
-function ipairs2(a)
-    return iter, a, 0
-end
-for k, v in pairs(obj) do
-    print(k, v)
-end
-for k, v in ipairs2(array) do
-    print(k, v)
-end
-print('----------iter function log end----------\n');
-
 -- table的一些function
 print('\n----------table function log start----------');
 print(table.concat(array, ',', 1, 2))
@@ -125,6 +88,12 @@ local testTable = setmetatable({1, 2, 3}, {
       __lt	对应的运算符 '<'.
       __le	对应的运算符 '<='.
      ]]
+--[[ 
+        注意： 
+            对于二元操作符，如果第一个操作数有元表，并且元表中有所需要的字段定义，比如我们这里的__add元方法定义，那么Lua就以这个字段为元方法，而与第二个值无关；
+            对于二元操作符，如果第一个操作数有元表，但是元表中没有所需要的字段定义，比如我们这里的__add元方法定义，那么Lua就去查找第二个操作数的元表；
+            如果两个操作数都没有元表，或者都没有对应的元方法定义，Lua就引发一个错误。 
+    ]] 
 
     __tostring = function(mytable)
         sum = 0
