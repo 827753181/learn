@@ -1,7 +1,7 @@
 REACTDOM.render 的流程
 
 ```
-  创建rootFiberNode、rootFiber、updateQueue（`legacyCreateRootFromDOMContainer`）
+  创建rootFiberNode(应用根节点)、rootFiber（组件树根节点）、updateQueue（`legacyCreateRootFromDOMContainer`）
       |
       v
   创建Update对象（`updateContainer`）
@@ -51,6 +51,9 @@ commit 阶段
       v
     TOFINISH
 ```
+
+
+
 
 buildOwnReact
 
