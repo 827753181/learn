@@ -1,0 +1,12 @@
+开始读取test1
+test2
+test3
+test4
+读取结束
+
+开始读取
+test1
+test2
+test3
+test4
+读取结束
