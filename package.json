@@ -3,6 +3,7 @@
     "esno": "^0.12.0",
     "global": "^4.4.0",
     "ts-node": "^10.4.0",
+    "undici": "^4.10.3",
     "verdaccio": "^5.1.6"
   },
   "devDependencies": {

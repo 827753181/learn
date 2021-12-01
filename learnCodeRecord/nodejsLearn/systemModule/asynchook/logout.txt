@@ -1,0 +1,40 @@
+init 
+ 6 
+ PROMISE 
+ 1 
+ [object PromiseWrap] 
+init 
+ 7 
+ TickObject 
+ 1 
+ [object Object] 
+init 
+ 8 
+ PROMISE 
+ 6 
+ [object PromiseWrap] 
+init 
+ 10 
+ TickObject 
+ 9 
+ [object Object] 
+init 
+ 11 
+ TickObject 
+ 9 
+ [object Object] 
+init 
+ 12 
+ TickObject 
+ 8 
+ [object Object] 
+init 
+ 13 
+ TickObject 
+ 8 
+ [object Object] 
+init 
+ 14 
+ TickObject 
+ 5 
+ [object Object] 
