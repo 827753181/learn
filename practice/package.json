@@ -19,6 +19,7 @@
     "@babel/preset-typescript": "^7.14.5",
     "jest": "^27.1.0",
     "lodash": "^4.17.21",
+    "nconf": "^0.11.3",
     "promises-aplus-tests": "*",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
