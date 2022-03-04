@@ -77,7 +77,8 @@ if("H" in a):
     print('H in HELLO')
 else:
     print('H not in HELLO')
-
+def printInfo(x,y):
+    return x+y
 
 if("A" not in a):
     print('A not in HELLO')
