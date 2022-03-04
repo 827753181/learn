@@ -15,50 +15,95 @@
 #
 # 给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？请你找出所有和为 0
 # 且不重复的三元组。
-# 
+#
 # 注意：答案中不可以包含重复的三元组。
-# 
-# 
-# 
+#
+#
+#
 # 示例 1：
-# 
-# 
+#
+#
 # 输入：nums = [-1,0,1,2,-1,-4]
 # 输出：[[-1,-1,2],[-1,0,1]]
-# 
-# 
+#
+#
 # 示例 2：
-# 
-# 
+#
+#
 # 输入：nums = []
 # 输出：[]
-# 
-# 
+#
+#
 # 示例 3：
-# 
-# 
+#
+#
 # 输入：nums = [0]
 # 输出：[]
-# 
-# 
-# 
-# 
+#
+#
+#
+#
 # 提示：
-# 
-# 
-# 0 
-# -10^5 
-# 
-# 
+#
+#
+# 0
+# -10^5
+#
+#
 #
 
 # @lc code=start
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
-        pass
+        # 双指针法
+        n = len(nums)
+        nums.sort()
+        ans = list()
+
+        for first in range(n):
+            # 如果first的值和上一个数相同，就没什么意义去做下面的判断了
+            if first > 0 and nums[first] == nums[first - 1]:
+                continue
+            second = first+1
+            target = -nums[first]
+            third = n-1
+            while second < third:
+                # 同first
+                if second > first+1 and nums[second] == nums[second - 1]:
+                    second += 1
+                    continue
+                if nums[second] + nums[third] < target:
+                    second += 1
+                elif nums[second] + nums[third] > target:
+                    third -= 1
+                else:
+                    ans.append([-target, nums[second], nums[third]])
+                    second += 1
+
+    
+        # first和second为止固定，去找third
+        # n = len(nums)
+        # nums.sort()
+        # ans = list()
+
+        # for first in range(n):
+        #     # 如果first的值和上一个数相同，就没什么意义去做下面的判断了
+        #     if first > 0 and nums[first] == nums[first - 1]:
+        #         continue
+        #     third = n-1
+        #     target = -nums[first]
+        #     for second in range(first+1, n):
+        #         # 同first
+        #         if second > first+1 and nums[second] == nums[second - 1]:
+        #             continue
+        #         while second < third and nums[second]+nums[third] > target:
+        #             third -= 1
+        #         if second == third:
+        #             break
+        #         elif nums[second] + nums[third] == target:
+        #             ans.append([-target, nums[second], nums[third]])
+        return ans
 # @lc code=end
-
-
 
 
 # class Solution:
@@ -66,7 +111,7 @@ class Solution:
 #         n = len(nums)
 #         nums.sort()
 #         ans = list()
-        
+
 #         # 枚举 a
 #         for first in range(n):
 #             # 需要和上一次枚举的数不相同
@@ -89,5 +134,5 @@ class Solution:
 #                     break
 #                 if nums[second] + nums[third] == target:
 #                     ans.append([nums[first], nums[second], nums[third]])
-        
+
 #         return ans
