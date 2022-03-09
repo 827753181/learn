@@ -18,6 +18,7 @@
 # 给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。
 #
 #
+
 #
 #
 #
@@ -54,9 +55,39 @@
 #
 
 # @lc code=start
+from operator import le
+
+
 class Solution:
+
     def letterCombinations(self, digits: str) -> List[str]:
-        pass
+        if not digits:
+            return list()
+        phoneMap = {
+            "2": "abc",
+            "3": "def",
+            "4": "ghi",
+            "5": "jkl",
+            "6": "mno",
+            "7": "pqrs",
+            "8": "tuv",
+            "9": "wxyz",
+        }
+        combinStrArr = list()
+        combinStrTempArr = list()
+
+        def loop(index):
+            if index == len(digits):
+                combinStrArr.append("".join(combinStrTempArr))
+            else:
+                digit = digits[index]
+                for letter in phoneMap[digit]:
+                    combinStrTempArr.append(letter)
+                    loop(index+1)
+                    combinStrTempArr.pop()
+        loop(0)
+        return combinStrArr
+
 # @lc code=end
 
 
