@@ -49,7 +49,39 @@
 # @lc code=start
 class Solution:
     def divide(self, dividend: int, divisor: int) -> int:
-        pass
+        MAX_VALUE = 2**31-1
+        MIN_VALUE = -2**31
+        # 被除数是最小值
+        if dividend == MIN_VALUE:
+            if divisor == -1:
+                return MAX_VALUE
+            if divisor == 1:
+                return MIN_VALUE
+        # 除数是最小值
+        if divisor == MIN_VALUE:
+            return 1 if dividend == MIN_VALUE else 0
+
+        # 所有值统一成正数
+        ret = False
+        if dividend < 0:
+            dividend = -dividend
+            ret = ret == False
+        if divisor < 0:
+            divisor = -divisor
+            ret = ret == False
+
+        arr = [divisor]
+        index = 0
+        while arr[index] <= dividend-arr[index]:
+            arr.append(arr[index]+arr[index])
+            index += 1
+        ans = 0
+        for i in range(len(arr)-1, -1, -1):
+            # 减掉后等于 0 就是整除
+            if(arr[i] >= dividend-arr[i] and dividend-arr[i] >= 0):
+                ans += 1 << i
+                dividend -= arr[i]
+        return ans if not ret else -ans
 # @lc code=end
 
 

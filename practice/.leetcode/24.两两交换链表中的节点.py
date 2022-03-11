@@ -14,39 +14,39 @@
 # Testcase Example:  '[1,2,3,4]'
 #
 # 给你一个链表，两两交换其中相邻的节点，并返回交换后链表的头节点。你必须在不修改节点内部的值的情况下完成本题（即，只能进行节点交换）。
-# 
-# 
-# 
+#
+#
+#
 # 示例 1：
-# 
-# 
+#
+#
 # 输入：head = [1,2,3,4]
 # 输出：[2,1,4,3]
-# 
-# 
+#
+#
 # 示例 2：
-# 
-# 
+#
+#
 # 输入：head = []
 # 输出：[]
-# 
-# 
+#
+#
 # 示例 3：
-# 
-# 
+#
+#
 # 输入：head = [1]
 # 输出：[1]
-# 
-# 
-# 
-# 
+#
+#
+#
+#
 # 提示：
-# 
-# 
+#
+#
 # 链表中节点的数目在范围 [0, 100] 内
 # 0 <= Node.val <= 100
-# 
-# 
+#
+#
 #
 
 # @lc code=start
@@ -57,12 +57,15 @@
 #         self.next = next
 class Solution:
     def swapPairs(self, head: ListNode) -> ListNode:
-        pass
+        if not head or not head.next:
+            return head
+        newHead = head.next
+        # 从后面往前面交换
+        head.next = self.swapPairs(newHead.next)
+        # 先交换后面的
+        newHead.next = head
+        return newHead
 # @lc code=end
-
-
-
-
 
 
 # var swapPairs = function(head) {
@@ -83,7 +86,6 @@ class Solution:
 #         head.next = self.swapPairs(newHead.next)
 #         newHead.next = head
 #         return newHead
-
 
 
 # var swapPairs = function(head) {
