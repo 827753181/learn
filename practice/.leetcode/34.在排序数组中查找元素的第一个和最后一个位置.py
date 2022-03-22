@@ -14,52 +14,70 @@
 # Testcase Example:  '[5,7,7,8,8,10]\n8'
 #
 # 给定一个按照升序排列的整数数组 nums，和一个目标值 target。找出给定目标值在数组中的开始位置和结束位置。
-# 
+#
 # 如果数组中不存在目标值 target，返回 [-1, -1]。
-# 
+#
 # 进阶：
-# 
-# 
+#
+#
 # 你可以设计并实现时间复杂度为 O(log n) 的算法解决此问题吗？
-# 
-# 
-# 
-# 
+#
+#
+#
+#
 # 示例 1：
-# 
-# 
+#
+#
 # 输入：nums = [5,7,7,8,8,10], target = 8
 # 输出：[3,4]
-# 
+#
 # 示例 2：
-# 
-# 
+#
+#
 # 输入：nums = [5,7,7,8,8,10], target = 6
 # 输出：[-1,-1]
-# 
+#
 # 示例 3：
-# 
-# 
+#
+#
 # 输入：nums = [], target = 0
 # 输出：[-1,-1]
-# 
-# 
-# 
+#
+#
+#
 # 提示：
-# 
-# 
-# 0 
+#
+#
+# 0
 # -10^9 
 # nums 是一个非递减数组
 # -10^9 
-# 
-# 
+#
+#
 #
 
 # @lc code=start
 class Solution:
     def searchRange(self, nums: List[int], target: int) -> List[int]:
-        pass
+        res = [-1, -1]
+        if not nums:
+            return res
+        l, r = 0, len(nums)-1
+        while l <= r:
+            mid = (l+r)//2
+            if nums[mid] == target:
+                res[0] = mid
+                res[1] = mid
+                while res[0]-1 >= 0 and nums[res[0]-1] == nums[mid]:
+                    res[0] -= 1
+                while res[1]+1 <= len(nums)-1 and nums[res[1]+1] == nums[mid]:
+                    res[1] += 1
+                return res
+            elif nums[mid] < target:
+                l = mid+1
+            else:
+                r = mid-1
+        return res
 # @lc code=end
 
 
@@ -85,6 +103,6 @@ class Solution:
 #     const rightIdx = binarySearch(nums, target, false) - 1;
 #     if (leftIdx <= rightIdx && rightIdx < nums.length && nums[leftIdx] === target && nums[rightIdx] === target) {
 #         ans = [leftIdx, rightIdx];
-#     } 
+#     }
 #     return ans;
 # };
