@@ -1,0 +1,9 @@
+lockfileVersion: 5.3
+
+specifiers:
+  '@lk-package/test1': workspace:^1.0.0
+  '@lk-package/test2': workspace:^1.0.0
+
+dependencies:
+  '@lk-package/test1': link:packages/test1
+  '@lk-package/test2': link:packages/test2

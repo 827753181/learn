@@ -1,0 +1,19 @@
+{
+	"name": "pnpmtestglobal",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"workspaces": [
+		"packages/**"
+	],
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"private": true,
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"@lk-package/test1": "workspace:^1.0.0",
+		"@lk-package/test2": "workspace:^1.0.0"
+	}
+}

@@ -1,0 +1,21 @@
+{
+  "name": "@lk-package/test1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "module": "es/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "private": true,
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~4.5.13",
+    "@vue/cli-plugin-router": "~4.5.13",
+    "@vue/cli-plugin-vuex": "~4.5.13",
+    "@vue/cli-plugin-eslint": "~4.5.13",
+    "@vue/cli-service": "~4.5.13",
+    "@vue/cli-plugin-typescript": "~4.5.13"
+  }
+}
