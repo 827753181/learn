@@ -14,16 +14,16 @@
 # Testcase Example:  '[10,1,2,7,6,1,5]\n8'
 #
 # 给定一个候选人编号的集合 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。
-# 
+#
 # candidates 中的每个数字在每个组合中只能使用 一次 。
-# 
+#
 # 注意：解集不能包含重复的组合。 
-# 
-# 
-# 
+#
+#
+#
 # 示例 1:
-# 
-# 
+#
+#
 # 输入: candidates = [10,1,2,7,6,1,5], target = 8,
 # 输出:
 # [
@@ -32,35 +32,62 @@
 # [1,7],
 # [2,6]
 # ]
-# 
+#
 # 示例 2:
-# 
-# 
+#
+#
 # 输入: candidates = [2,5,2,1,2], target = 5,
 # 输出:
 # [
 # [1,2,2],
 # [5]
 # ]
-# 
-# 
-# 
+#
+#
+#
 # 提示:
-# 
-# 
+#
+#
 # 1 <= candidates.length <= 100
 # 1 <= candidates[i] <= 50
 # 1 <= target <= 30
-# 
-# 
+#
+#
 #
 
 # @lc code=start
+from typing import List
+
+
 class Solution:
     def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
-        pass
-# @lc code=end
 
+        size = len(candidates)
+        if target == 0 or size == 0:
+            return []
+
+        ans = []
+
+        def dfs(start: int, end: int, target: int, path: list):
+            if target == 0:
+                ans.append(path[:])
+                return
+            for i in range(start, end):
+                if candidates[i] > target: 
+                    break
+
+                # 解集不能包含重复的组合。 
+                if i > start and candidates[i] == candidates[i-1]:
+                    continue
+                
+                path.append(candidates[i])
+                dfs(i+1, end, target - candidates[i], path)
+                path.pop()
+        candidates.sort()
+        dfs(0, size, target, [])
+
+        return ans
+# @lc code=end
 
 
 # class Solution:
@@ -72,7 +99,7 @@ class Solution:
 #                 return
 #             if pos == len(freq) or rest < freq[pos][0]:
 #                 return
-            
+
 #             dfs(pos + 1, rest)
 
 #             most = min(rest // freq[pos][0], freq[pos][1])
@@ -80,15 +107,12 @@ class Solution:
 #                 sequence.append(freq[pos][0])
 #                 dfs(pos + 1, rest - i * freq[pos][0])
 #             sequence = sequence[:-most]
-        
+
 #         freq = sorted(collections.Counter(candidates).items())
 #         ans = list()
 #         sequence = list()
 #         dfs(0, target)
 #         return ans
-
-
-from typing import List
 
 
 # class Solution:
