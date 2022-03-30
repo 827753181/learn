@@ -48,6 +48,35 @@
 # @lc code=start
 class Solution:
     def permuteUnique(self, nums: List[int]) -> List[List[int]]:
+        res = []
+        size = len(nums)
+        if size == 0:
+            return res
+        # state = 0
+        # def dfs(arr:list[int],state,depth,size):
+        #     if depth == size: 
+        #         res.append(arr)
+        #         return 
+        #     else: 
+        #         for i in range(size):
+        #             if (state>>i) & 1 == 0:
+        #                 dfs(arr+[nums[i]],state^(1<<i),depth+1,size)
+        # dfs([],state,0,size)
+        nums.sort()
+        def backtrace(first = 0):
+            if first == size:
+                res.append(nums[:])
+            remains= []
+            for i in range(first,size):
+                if nums[i] in remains:
+                    continue
+                else:
+                    remains.append(nums[i])
+                    nums[first],nums[i] = nums[i],nums[first]
+                    backtrace(first+1)
+                    nums[first],nums[i] = nums[i],nums[first]
+        backtrace()
+        return res
 # @lc code=end
 
 

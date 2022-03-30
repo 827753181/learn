@@ -58,11 +58,6 @@ class Solution:
     def jump(self, nums: List[int]) -> int:
         # end,maxPos,step = 0,0,0
         # for i in range(0,len(nums)):
-
-            
-
-
-
         position = len(nums)-1
         steps = 0
         while position > 0:
@@ -72,10 +67,6 @@ class Solution:
                     steps += 1
                     break
         return steps
-
-
-
-
         # minJump = MAXINT
 
         # def dfs(index, jumpStep):
