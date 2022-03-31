@@ -1,31 +1,27 @@
 {
-	"compilerOptions": {
-		"baseUrl": ".",
-		"outDir": "dist",
-		"sourceMap": false,
-		"target": "es2016",
-		"useDefineForClassFields": false,
-		"module": "esnext",
-		"moduleResolution": "node",
-		"allowJs": false,
-		"strict": true,
-		"noUnusedLocals": true,
-		"experimentalDecorators": true,
-		"resolveJsonModule": true,
-		"esModuleInterop": true,
-		"removeComments": false,
-		"jsx": "preserve",
-		"lib": ["esnext", "dom"],
-		"types": ["jest"],
-		"rootDir": ".",
-		"paths": {
-			"@lk-package/*": ["packages/*/src"],
-		}
-	},
-	"include": [
-		"packages/global.d.ts",
-		"packages/*/src",
-		"packages/*/__tests__",
-		"test-dts"
-	]
+    "compilerOptions": {
+        "baseUrl": ".",
+        "outDir": "dist",
+        "sourceMap": false,
+        "declaration": false,
+        "target": "es2016",
+        "useDefineForClassFields": false,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "allowJs": false,
+        "strict": true,
+        "noUnusedLocals": true,
+        "experimentalDecorators": true,
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "removeComments": false,
+        "jsx": "preserve",
+        "lib": ["esnext", "dom"],
+        "rootDir": ".",
+        "paths": {
+            "@lk-package/*": ["packages/*/src"]
+        },
+        "typeRoots": ["./types", "node_modules/@types"]
+    },
+    "exclude": ["node_modules"]
 }
