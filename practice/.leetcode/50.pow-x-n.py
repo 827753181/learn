@@ -14,47 +14,64 @@
 # Testcase Example:  '2.00000\n10'
 #
 # 实现 pow(x, n) ，即计算 x 的 n 次幂函数（即，x^n^ ）。
-# 
-# 
-# 
+#
+#
+#
 # 示例 1：
-# 
-# 
+#
+#
 # 输入：x = 2.00000, n = 10
 # 输出：1024.00000
-# 
-# 
+#
+#
 # 示例 2：
-# 
-# 
+#
+#
 # 输入：x = 2.10000, n = 3
 # 输出：9.26100
-# 
-# 
+#
+#
 # 示例 3：
-# 
-# 
+#
+#
 # 输入：x = 2.00000, n = -2
 # 输出：0.25000
 # 解释：2^-2 = 1/2^2 = 1/4 = 0.25
-# 
-# 
-# 
-# 
+#
+#
+#
+#
 # 提示：
-# 
-# 
+#
+#
 # -100.0 < x < 100.0
 # -2^31 <= n <= 2^31-1
 # -10^4 <= x^n <= 10^4
-# 
-# 
+#
+#
 #
 
 # @lc code=start
 class Solution:
     def myPow(self, x: float, n: int) -> float:
-        pass
+        maxSum = x
+        num = n if n >= 0 else -n
+        ans = 1
+        while num > 0:
+            if num % 2 == 1:
+                ans *= maxSum
+            maxSum = maxSum*maxSum
+            num //= 2
+        # if n == 0:
+        #     return 1
+        # ans = 1
+        # while num > 1:
+        #     if num % 2 == 1:
+        #         ans *= maxSum
+        #     maxSum = maxSum*maxSum
+        #     num //= 2
+        # ans *= maxSum
+        return ans if n >= 0 else 1.0 / ans
 # @lc code=end
 
 # class Solution:
@@ -64,7 +81,7 @@ class Solution:
 #                 return 1.0
 #             y = quickMul(N // 2)
 #             return y * y if N % 2 == 0 else y * y * x
-        
+
 #         return quickMul(n) if n >= 0 else 1.0 / quickMul(-n)
 
 # class Solution:
@@ -83,5 +100,5 @@ class Solution:
 #                 # 舍弃 N 二进制表示的最低位，这样我们每次只要判断最低位即可
 #                 N //= 2
 #             return ans
-        
+
 #         return quickMul(n) if n >= 0 else 1.0 / quickMul(-n)
