@@ -51,7 +51,13 @@
 # @lc code=start
 class Solution:
     def canJump(self, nums: List[int]) -> bool:
-        pass
+        n = len(nums)
+        maxPos = 0
+        for i in range(0,n):
+            if i > maxPos:
+                return False
+            maxPos = max(maxPos,i+nums[i])
+        return True
 # @lc code=end
 
 # class Solution:
