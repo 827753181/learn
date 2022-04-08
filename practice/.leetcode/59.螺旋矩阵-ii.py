@@ -14,39 +14,48 @@
 # Testcase Example:  '3'
 #
 # 给你一个正整数 n ，生成一个包含 1 到 n^2 所有元素，且元素按顺时针顺序螺旋排列的 n x n 正方形矩阵 matrix 。
-# 
-# 
-# 
+#
+#
+#
 # 示例 1：
-# 
-# 
+#
+#
 # 输入：n = 3
 # 输出：[[1,2,3],[8,9,4],[7,6,5]]
-# 
-# 
+#
+#
 # 示例 2：
-# 
-# 
+#
+#
 # 输入：n = 1
 # 输出：[[1]]
-# 
-# 
-# 
-# 
+#
+#
+#
+#
 # 提示：
-# 
-# 
-# 1 
-# 
-# 
+#
+#
+# 1
+#
+#
 #
 
 # @lc code=start
 class Solution:
-    def generateMatrix(self, n: int) -> List[List[int]]:
-        pass
+    def generateMatrix(self,n):
+        j = 0
+        addArr = [[0, 1], [1, 0], [0, -1], [-1, 0]]
+        x, y = 0, 0
+        ans = [[False]*n for i in range(n)]
+        for i in range(1, n**2+1):
+            ans[x][y] = i
+            finalX, finalY = x+addArr[j][0], y+addArr[j][1]
+            if finalX >= n or finalX < 0 or finalY >= n or finalY < 0 or ans[finalX][finalY]:
+                j = (j+1) % 4
+            x, y = x+addArr[j][0], y+addArr[j][1]
+        return ans
 # @lc code=end
-
 
 
 # var generateMatrix = function(n) {
