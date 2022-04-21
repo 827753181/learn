@@ -77,6 +77,14 @@
 # @lc code=start
 class Solution:
     def simplifyPath(self, path: str) -> str:
-        pass
+        arr = []
+        for token in path.split('/'):
+            if token in ['','.']:
+                pass
+            elif token == '..':
+                arr and arr.pop()
+            else:
+                arr.append(token)
+        return '/'+'/'.join(arr)
 # @lc code=end
 
