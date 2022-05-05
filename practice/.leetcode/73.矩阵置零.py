@@ -59,7 +59,27 @@
 
 # @lc code=start
 class Solution:
-    def setZeroes(self, matrix: List[List[int]]) -> None:
+    def setZeroes(self, matrix: list[list[int]]) -> None:
+        if not matrix or not matrix[0]: return matrix
+        rl = len(matrix)
+        cl = len(matrix[0])
+        zeroClArr = []
+        zeroRlArr = []
+        for i in range(rl):
+            for j in range(cl):
+                if matrix[i][j] == 0:
+                    if i not in zeroClArr:
+                        zeroClArr.append(i)
+                    if j not in zeroRlArr:
+                        zeroRlArr.append(j)
+        
+        for i in zeroClArr:
+            for j in range(cl): 
+                matrix[i][j] = 0
+        for j in zeroRlArr:
+            for i in range(rl): 
+                matrix[i][j] = 0
+        return matrix
         """
         Do not return anything, modify matrix in-place instead.
         """
