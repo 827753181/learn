@@ -6,5 +6,6 @@
   "pasteImage.namePrefix": "${currentFileNameWithoutExt}__",
   "pasteImage.prefix": "",
   "pasteImage.insertPattern": "![${imageFileNameWithoutExt}](/studyNotes/${imageFilePath})",
-  "pasteImage.showFilePathConfirmInputBox": false
+  "pasteImage.showFilePathConfirmInputBox": false,
+  "python.formatting.provider": "autopep8"
 }
