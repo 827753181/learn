@@ -51,3 +51,36 @@ class Solution:
         pass
 # @lc code=end
 
+# var subsets = function(nums) {
+#     const ans = [];
+#     const n = nums.length;
+#     for (let mask = 0; mask < (1 << n); ++mask) {
+#         const t = [];
+#         for (let i = 0; i < n; ++i) {
+#             if (mask & (1 << i)) {
+#                 t.push(nums[i]);
+#             }
+#         }
+#         ans.push(t);
+#     }
+#     return ans;
+# };
+
+
+# var subsets = function(nums) {
+#     const t = [];
+#     const ans = [];
+#     const n = nums.length;
+#     const dfs = (cur) => {
+#         if (cur === nums.length) {
+#             ans.push(t.slice());
+#             return;
+#         }
+#         t.push(nums[cur]);
+#         dfs(cur + 1, nums);
+#         t.pop(t.length - 1);
+#         dfs(cur + 1, nums);
+#     }
+#     dfs(0, nums);
+#     return ans;
+# };

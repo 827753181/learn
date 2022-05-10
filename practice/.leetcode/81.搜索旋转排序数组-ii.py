@@ -69,3 +69,39 @@ class Solution:
         pass
 # @lc code=end
 
+
+
+# 对于数组中有重复元素的情况，二分查找时可能会有 a[l]=a[\textit{mid}]=a[r]a[l]=a[mid]=a[r]，此时无法判断区间 [l,\textit{mid}][l,mid] 和区间 [\textit{mid}+1,r][mid+1,r] 哪个是有序的。
+
+# 例如 \textit{nums}=[3,1,2,3,3,3,3]nums=[3,1,2,3,3,3,3]，\textit{target}=2target=2，首次二分时无法判断区间 [0,3][0,3] 和区间 [4,6][4,6] 哪个是有序的。
+# 对于这种情况，我们只能将当前二分区间的左边界加一，右边界减一，然后在新区间上继续二分查找。
+
+# class Solution:
+#     def search(self, nums: List[int], target: int) -> bool:
+#         if not nums:
+#             return False
+        
+#         n = len(nums)
+#         if n == 1:
+#             return nums[0] == target
+        
+#         l, r = 0, n - 1
+#         while l <= r:
+#             mid = (l + r) // 2
+#             if nums[mid] == target:
+#                 return True
+#             if nums[l] == nums[mid] and nums[mid] == nums[r]:
+#                 l += 1
+#                 r -= 1
+#             elif nums[l] <= nums[mid]:
+#                 if nums[l] <= target and target < nums[mid]:
+#                     r = mid - 1
+#                 else:
+#                     l = mid + 1
+#             else:
+#                 if nums[mid] < target and target <= nums[n - 1]:
+#                     l = mid + 1
+#                 else:
+#                     r = mid - 1
+        
+#         return False
