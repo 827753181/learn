@@ -4,7 +4,7 @@ import pymysql
 mydb = pymysql.connect(
     host="localhost",
     user="root",
-    passwd="asd703090",
+    passwd="asd456789",
     database="flb_test_db"
 )
 # 事务应该具有4个属性：原子性、一致性、隔离性、持久性。这四个属性通常称为ACID特性。
