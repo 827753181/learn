@@ -3,7 +3,7 @@ import { BookService } from '../service/bookService';
 
 @Provide()
 @Controller('/test')
-export class HomeController {
+export class TestController {
   @Inject()
   bookService: BookService; // 这里直接注入了 book 这个作用域下的 bookService
 
