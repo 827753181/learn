@@ -9,7 +9,7 @@ import { ReportMiddleware } from './middleware/report.middleware';
 import { DefaultErrorFilter } from './filter/default.filter';
 import { NotFoundFilter } from './filter/notfound.filter';
 import * as orm from '@midwayjs/orm';
-import { MidwayApplicationManager } from '@midwayjs/core';
+import { IMidwayContainer, MidwayApplicationManager } from '@midwayjs/core';
 
 @Configuration({
   imports: [
@@ -30,7 +30,10 @@ export class ContainerLifeCycle {
   @Inject()
   applicationManager: MidwayApplicationManager;
 
-  async onReady() {
+  async onReady(container: IMidwayContainer) {
+    if (container.hasNamespace('axios')) {
+      console.log(1);
+    }
     console.log(
       this.applicationManager.getApplications(['koa', 'orm', 'validate'])
     );

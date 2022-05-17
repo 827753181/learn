@@ -17,6 +17,12 @@ export class APIController {
   @Inject()
   siteService: SiteService;
 
+  @Get('/')
+  async getApi() {
+    console.log(this.siteService);
+    return 1;
+  }
+
   // 明确的路由优先级最高，长的路由优先级高，通配的优先级最低 ,优先级相同，先加载的优先
   @Get('/:id/page')
   async getPage1(@Query('id') id) {
