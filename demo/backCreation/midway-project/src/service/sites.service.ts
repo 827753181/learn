@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { Sites } from '../entity/Sites';
 import { ISitesOptions } from '../interface';
 
-@Provide()
+@Provide('SiteService')
 export class SiteService {
   @InjectEntityModel(Sites)
   sitesModel: Repository<Sites>;
