@@ -3,6 +3,7 @@ import { Context } from '@midwayjs/koa';
 import Application = require('koa');
 import { SiteService } from '../service/sites.service';
 import { UserService } from '../service/user.service';
+import { MidwayI18nService } from '@midwayjs/i18n';
 
 @Controller('/api')
 export class APIController {
@@ -11,6 +12,8 @@ export class APIController {
 
   @App()
   app: Application;
+  @Inject()
+  midwayI18nService: MidwayI18nService;
 
   @Inject()
   userService: UserService;
@@ -44,5 +47,14 @@ export class APIController {
   async getUser(@Query('uid') uid) {
     const user = await this.userService.getUser({ uid });
     return { success: true, message: 'OK', data: user };
+  }
+
+  @Get('/get_locale')
+  async getHello(@Query('username') username = 'test') {
+    return this.midwayI18nService.translate('hello', {
+      args: {
+        username,
+      },
+    });
   }
 }

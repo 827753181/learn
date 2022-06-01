@@ -20,10 +20,16 @@ import * as LocalConfig from './config/config.local';
 import * as testComponent from './components/testComponent/src';
 import * as axios from '@midwayjs/axios';
 import * as lodash from 'lodash';
+import * as i18n from '@midwayjs/i18n';
+
 import { MemoryStore } from './service/memoryStore.service';
 import { MEMERY_CACHE_KEY } from './decorator/propertyDecorator/memery.decorator';
 import { LOGGING_TIME_KEY } from './decorator/methodDecorator/loggingTime.decorator';
 import { USER_KEY } from './decorator/paramDecorator/user.decorator';
+import {
+  CustomHttpErrorCodeEnum,
+  HttpCustomError,
+} from './error/httpCustomError';
 
 @Configuration({
   imports: [
@@ -36,6 +42,7 @@ import { USER_KEY } from './decorator/paramDecorator/user.decorator';
     },
     orm,
     axios,
+    i18n,
   ],
   importConfigs: [
     {
@@ -140,7 +147,12 @@ export class ContainerLifeCycle implements ILifeCycle {
       },
       error => {
         // Do something with request error
-        return Promise.reject(error);
+        throw new HttpCustomError(
+          error.message,
+          CustomHttpErrorCodeEnum.COMMON
+        );
+
+        // return Promise.reject(error);
       }
     );
 

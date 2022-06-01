@@ -9,6 +9,7 @@
     "@midwayjs/bundle-helper": "^1.1.1",
     "@midwayjs/core": "^3.0.0",
     "@midwayjs/decorator": "^3.0.0",
+    "@midwayjs/i18n": "3",
     "@midwayjs/info": "^3.0.0",
     "@midwayjs/koa": "^3.0.0",
     "@midwayjs/logger": "^2.14.0",
