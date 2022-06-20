@@ -23,6 +23,12 @@ export default {
   session: {
     renew: true,
   },
+  validate: {
+    errorStatus: 201,
+    validationOptions: {
+      allowUnknown: true,
+    },
+  },
   i18n: {
     localeTable: {
       en_US: require('../locales/en_US'),

@@ -4,6 +4,8 @@ import Application = require('koa');
 import { SiteService } from '../service/sites.service';
 import { UserService } from '../service/user.service';
 import { MidwayI18nService } from '@midwayjs/i18n';
+import { userDto } from '../dto/user';
+import { Validate } from '@midwayjs/validate';
 
 @Controller('/api')
 export class APIController {
@@ -44,8 +46,9 @@ export class APIController {
   }
 
   @Get('/get_user')
-  async getUser(@Query('uid') uid) {
-    const user = await this.userService.getUser({ uid });
+  @Validate({})
+  async getUser(@Query() query: userDto) {
+    const user = await this.userService.getUser({ uid: query.uid });
     return { success: true, message: 'OK', data: user };
   }
 

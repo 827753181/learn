@@ -30,6 +30,7 @@ import {
   CustomHttpErrorCodeEnum,
   HttpCustomError,
 } from './error/httpCustomError';
+import { ValidationErrorFilter } from './filter/validate.filter';
 
 @Configuration({
   imports: [
@@ -126,7 +127,11 @@ export class ContainerLifeCycle implements ILifeCycle {
     // add middleware
     this.app.useMiddleware([ReportMiddleware]);
     // add filter
-    this.app.useFilter([NotFoundFilter, DefaultErrorFilter]);
+    this.app.useFilter([
+      NotFoundFilter,
+      DefaultErrorFilter,
+      ValidationErrorFilter,
+    ]);
     // this.app.getMiddleware().getNames();
     // this.app.getMiddleware().insertFirst(ReportMiddleware);
     // this.app.getMiddleware().insertLast(ReportMiddleware);
