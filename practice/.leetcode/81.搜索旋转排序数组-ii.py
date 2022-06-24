@@ -84,7 +84,7 @@ class Solution:
 #         n = len(nums)
 #         if n == 1:
 #             return nums[0] == target
-        
+         
 #         l, r = 0, n - 1
 #         while l <= r:
 #             mid = (l + r) // 2

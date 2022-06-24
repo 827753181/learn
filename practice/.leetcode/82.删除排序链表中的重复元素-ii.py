@@ -51,7 +51,7 @@
 #         self.next = next
 class Solution:
     def deleteDuplicates(self, head: ListNode) -> ListNode:
-        pass
+        pass 
 # @lc code=end
 
 # 思路与算法
