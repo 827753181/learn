@@ -6,26 +6,30 @@ function VerifySquenceOfBST(arr: number[]) {
 	if (arr.length == 0 || arr == null) {
 		return false;
 	}
-	let root = arr[arr.length - 1],
-		leftTree = [],
-		rightTree = [];
-	let i = 0;
-	for (; i < arr.length - 1; i++) {
+	const len = arr.length;
+	let root = arr[len - 1];
+	let i = 0,
+		j = 0;
+	for (; i < len - 1; i++) {
 		const val = arr[i];
-		if (val < root) {
-			leftTree.push(val);
-		} else {
+		if (val > root) {
 			break;
 		}
 	}
-	for (; i < arr.length - 1; i++) {
-		const val = arr[i];
-		if (val > root) {
-			rightTree.push(val);
-		} else {
+	for (j = i; j < len - 1; j++) {
+		const val = arr[j];
+		if (val < root) {
 			return false;
 		}
 	}
-	if (leftTree.length == 0 && rightTree.length == 0) return true;
-	return VerifySquenceOfBST(leftTree) && VerifySquenceOfBST(rightTree);
+	let left = true,
+		right = true;
+	if (i > 0) {
+		left = VerifySquenceOfBST(arr.slice(0, i));
+	}
+	if (i < len - 1) {
+		right = VerifySquenceOfBST(arr.slice(i, len - 1));
+	}
+
+	return left && right;
 }
