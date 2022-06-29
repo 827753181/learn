@@ -23,9 +23,9 @@ function reConstructBinaryTree(preArr: number[], inOrderArr: number[]) {
 	const root = preArr[0],
 		inOrderRootIndex = inOrderArr.indexOf(root);
 	// left Tree len
-	const leftTreeLen = inOrderRootIndex - 1;
+	// const leftTreeLen = inOrderRootIndex - 1;
 	// right Tree len
-	const rightTreeLen = inOrderArr.length - inOrderRootIndex;
+	// const rightTreeLen = inOrderArr.length - inOrderRootIndex;
 
 	const preLeftArr = preArr.slice(1, inOrderRootIndex),
 		preRightArr = preArr.slice(inOrderRootIndex + 1),
