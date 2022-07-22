@@ -132,11 +132,11 @@ class Heap {
 				i++;
 			}
 			// 和孩子节点的最大/小值比较
-			if (isMinHeap ? array[index] < array[i] : array[index] > array[i]) {
-				break;
-			} else {
+			if (isMinHeap ? array[index] > array[i] : array[index] < array[i]) {
 				[array[index], array[i]] = [array[i], array[index]];
 				index = i;
+			} else {
+				break;
 			}
 		}
 	}
